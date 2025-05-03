@@ -35,15 +35,17 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h2>📚 FocusGuard</h2>
+  <h2>FocusGuard</h2>
   <p>Stay focused. Block distractions.</p>
   
-  <button id="unlockBtn">🧠 Solve Challenge to Unlock</button>
+  <div class="button-container">
+    <button id="unlockBtn" class="power-button">⏻</button>
+  </div>
 
   <div id="challengeBox" style="display: none;">
     <p id="challengeText"></p>
     <input type="number" id="answerInput" placeholder="Your answer" />
-    <button id="submitAnswer">Submit</button>
+    <button id="submitAnswer" id="power-button">Submit</button>
   </div>
 
   <p id="statusMsg"></p>
