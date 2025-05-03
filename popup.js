@@ -1,15 +1,38 @@
 // button switch (on or off)
+// const buttonInput = document.getElementById("unlockBtn");
+
+// document.getElementById("unlockBtn").addEventListener("click", function () {
+//   if (this.style.backgroundColor === "rgb(76, 175, 80)") {
+//     this.style.backgroundColor = "rgb(211, 47, 47)";
+//   } else {
+//     this.style.backgroundColor = "rgb(76, 175, 80)";
+//   }  
+// });
+
 const buttonInput = document.getElementById("unlockBtn");
 
-document.getElementById("unlockBtn").addEventListener("click", function () {
-  if (this.style.backgroundColor === "rgb(76, 175, 80)") {
-    this.style.backgroundColor = "rgb(211, 47, 47)";
-  } else {
-    this.style.backgroundColor = "rgb(76, 175, 80)";
-  }  
+// Initialize button state from storage
+chrome.storage.local.get("blockingEnabled", (data) => {
+  const enabled = data.blockingEnabled ?? true; // default to true
+  updateButtonState(enabled);
 });
 
-// 🔒 Site Block List
+function updateButtonState(isEnabled) {
+  buttonInput.style.backgroundColor = isEnabled ? "rgb(76, 175, 80)" : "rgb(211, 47, 47)";
+}
+
+buttonInput.addEventListener("click", () => {
+  chrome.storage.local.get("blockingEnabled", (data) => {
+    const currentlyEnabled = data.blockingEnabled ?? true;
+    const newValue = !currentlyEnabled;
+
+    chrome.storage.local.set({ blockingEnabled: newValue }, () => {
+      updateButtonState(newValue);
+    });
+  });
+});
+
+// site Block List
 const siteInput = document.getElementById("siteInput");
 const addSite = document.getElementById("addSite");
 const list = document.getElementById("blockedSitesList");
