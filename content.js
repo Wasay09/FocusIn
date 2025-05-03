@@ -100,7 +100,6 @@ document.body.innerHTML =
   <input id="topicInput" type="text" placeholder="What are you studying?" />
   <button id="askTopic">Ask Question from Topic</button>
 
-  <hr>
   <input type="file" id="fileInput" accept=".txt">
   <button id="askAI">Ask Question from Notes</button>
 
@@ -110,8 +109,6 @@ document.body.innerHTML =
   <button id="unlockButton">Unlock</button>
   <p id="statusMessage"></p>
 </div>`;
-
-    
 
     let questionLoaded = false;
     let storedQuestion = "";
@@ -138,6 +135,26 @@ document.body.innerHTML =
       const reader = new FileReader();
       reader.onload = async () => {
         const content = reader.result.slice(0, 8000);
+        const prompt = `Generate one short study question based on this content:\n\n${content}`;
+
+        const apiKey = "AIzaSyATkC3YEp1WnUX8pHfjAyt3TI4v6ztw6Cs";
+        const url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=" + apiKey;
+
+        try {
+          const res = await fetch(url, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              contents: [{ parts: [{ text: prompt }] }]
+            })
+          });
+
+          const data = await res.json();
+          const question = data?.candidates?.[0]?.content?.parts?.[0]?.text || "⚠ No question generated.";
+          status.textContent = "🧠 " + question;
+        } catch (err) {
+          status.textContent = "⚠ Error: " + err.message;
+        }
         const prompt = `Create a quiz question with a clear answer based on these notes:\n\n${content}\nRespond in the format:\nQuestion: ...\nAnswer: ...`;
         await askGemini(prompt, status);
       };
