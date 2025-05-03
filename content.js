@@ -136,21 +136,6 @@ document.body.innerHTML = `
     <p id="statusMessage"></p>
   </div>`;
 
-    document.body.innerHTML = `
-      <div class="focus-container">
-        <h1>FocusIn Active</h1>
-        <p>This site is blocked while you're studying. Ask Gemini to generate a question.</p>
-        <p id="aiQuestion">No question loaded yet.</p>
-        <input id="topicInput" type="text" placeholder="What are you studying?" />
-        <button id="askTopic">Ask Question from Topic</button>
-        <input type="file" id="fileInput" accept=".txt">
-        <button id="askAI">Ask Question from Notes</button>
-        <hr>
-        <input id="answerInput" type="text" placeholder="Enter your answer..." />
-        <button id="unlockButton">Unlock</button>
-        <p id="statusMessage"></p>
-      </div>`;
-
     let questionLoaded = false;
     let storedQuestion = "";
 
