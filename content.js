@@ -126,7 +126,7 @@ chrome.storage.local.get(["unlockGranted", "blockedSites"], (data) => {
         const content = reader.result.slice(0, 8000);
         const prompt = `Generate one short study question based on this content:\n\n${content}`;
 
-        const apiKey = "AIzaSyATkC3YEp1WnUX8pHfjAyt3TI4v6ztw6Cs"; // 🔁 Replace this
+        const apiKey = "AIzaSyATkC3YEp1WnUX8pHfjAyt3TI4v6ztw6Cs";
         const url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=" + apiKey;
 
         try {
