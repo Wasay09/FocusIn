@@ -1,14 +1,4 @@
 // button switch (on or off)
-// const buttonInput = document.getElementById("unlockBtn");
-
-// document.getElementById("unlockBtn").addEventListener("click", function () {
-//   if (this.style.backgroundColor === "rgb(76, 175, 80)") {
-//     this.style.backgroundColor = "rgb(211, 47, 47)";
-//   } else {
-//     this.style.backgroundColor = "rgb(76, 175, 80)";
-//   }  
-// });
-
 const buttonInput = document.getElementById("unlockBtn");
 
 // Initialize button state from storage
@@ -17,6 +7,7 @@ chrome.storage.local.get("blockingEnabled", (data) => {
   updateButtonState(enabled);
 });
 
+// if the color is green, the button is enabled else the button is not enabled
 function updateButtonState(isEnabled) {
   buttonInput.style.backgroundColor = isEnabled ? "rgb(76, 175, 80)" : "rgb(211, 47, 47)";
 }
