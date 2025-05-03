@@ -137,7 +137,6 @@ document.body.innerHTML =
       const reader = new FileReader();
       reader.onload = async () => {
         const content = reader.result.slice(0, 8000);
-<<<<<<< HEAD
         const prompt = `Generate one short study question based on this content:\n\n${content}`;
 
         const apiKey = "AIzaSyATkC3YEp1WnUX8pHfjAyt3TI4v6ztw6Cs";
@@ -158,10 +157,6 @@ document.body.innerHTML =
         } catch (err) {
           status.textContent = "⚠ Error: " + err.message;
         }
-=======
-        const prompt = `Create a quiz question with a clear answer based on these notes:\n\n${content}\nRespond in the format:\nQuestion: ...\nAnswer: ...`;
-        await askGemini(prompt, status);
->>>>>>> 7b8a222 (changed interface)
       };
 
       reader.readAsText(file);
