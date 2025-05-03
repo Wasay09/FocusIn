@@ -1,21 +1,26 @@
 {
-"manifest_version": 3,
-   "name": "FocusIn",
-   "version": "3.0",
-   "description": "Stay focused while studying by blocking distracting sites.",
-   "permissions": ["storage", "tabs", "scripting", "activeTab"],
-   "host_permissions": ["<all_urls>"],
-   "background": {
-     "service_worker": "background.js"
-   },
-   "action": {
-     "default_popup": "popup.html",
-     "default_icon": "icons/icon128.png"
-   },
-   "content_scripts": [
-     {
-       "matches": ["<all_urls>"],
-       "js": ["content.js"]
-     }
-   ]
+  "manifest_version": 3,
+  "name": "FocusIn",
+  "version": "3.0",
+  "description": "Stay focused while studying by blocking distracting sites.",
+  "permissions": ["storage", "tabs", "scripting", "activeTab"],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "icons/icon.png"
+  },
+  "icons": {
+    "16": "icons/icon.png",
+    "48": "icons/icon.png",
+    "128": "icons/icon.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ]
 }
