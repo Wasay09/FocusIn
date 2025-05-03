@@ -1,1 +1,1 @@
-This is a GDSC Hackathon Project that was created by Wasayuddin Syed, Aryan Shah, Zayn Bhatti, Louis Nyugen
+This is a GDSC Hackathon Project that was created by Wasayuddin Syed, Aryan Shah, Zayn Bhatti, Louis Nguyen
