@@ -138,31 +138,8 @@ document.body.innerHTML =
       const reader = new FileReader();
       reader.onload = async () => {
         const content = reader.result.slice(0, 8000);
-<<<<<<< HEAD
-        const prompt = `Generate one short study question based on this content:\n\n${content}`;
-
-        const apiKey = "AIzaSyATkC3YEp1WnUX8pHfjAyt3TI4v6ztw6Cs";
-        const url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=" + apiKey;
-
-        try {
-          const res = await fetch(url, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              contents: [{ parts: [{ text: prompt }] }]
-            })
-          });
-
-          const data = await res.json();
-          const question = data?.candidates?.[0]?.content?.parts?.[0]?.text || "⚠ No question generated.";
-          status.textContent = "🧠 " + question;
-        } catch (err) {
-          status.textContent = "⚠ Error: " + err.message;
-        }
-=======
         const prompt = `Create a quiz question with a clear answer based on these notes:\n\n${content}\nRespond in the format:\nQuestion: ...\nAnswer: ...`;
         await askGemini(prompt, status);
->>>>>>> 7b8a222 (changed interface)
       };
 
       reader.readAsText(file);
