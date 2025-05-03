@@ -1,4 +1,5 @@
 chrome.storage.local.get(["unlockGranted", "blockedSites"], (data) => {
+  const apiKey = "AIzaSyATkC3YEp1WnUX8pHfjAyt3TI4v6ztw6Cs";
   const unlock = data.unlockGranted;
   const blockedSites = data.blockedSites || [];
   const hostname = window.location.hostname.toLowerCase();
@@ -139,7 +140,6 @@ chrome.storage.local.get(["unlockGranted", "blockedSites"], (data) => {
     });
 
     async function askGemini(prompt, statusElem) {
-      const apiKey = "AIzaSyATkC3YEp1WnUX8pHfjAyt3TI4v6ztw6Cs";
       const url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" + apiKey;
 
       try {
