@@ -79,5 +79,5 @@ addSite.addEventListener("click", () => {
   });
 });
 
-// shwoing the blocked site list
+// showing the blocked site list
 refreshSiteList();

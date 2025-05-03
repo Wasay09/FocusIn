@@ -14,127 +14,86 @@ chrome.storage.local.get(["unlockGranted", "blockedSites", "blockingEnabled"], (
 
   if (shouldBlock && !unlock) {
     document.head.innerHTML = `
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background: linear-gradient(135deg, #a8e6cf, #000000);
-      color: #fff;
-      font-family: 'Segoe UI', sans-serif;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-    }
-    .focus-container {
-      background: rgba(0, 0, 0, 0.85);
-      padding: 40px 30px;
-      border-radius: 18px;
-      text-align: center;
-      max-width: 500px;
-      width: 90%;
-      box-shadow: 0 0 20px rgba(0,0,0,0.6);
-    }
-    h1 {
-      font-size: 28px;
-      margin-bottom: 18px;
-    }
-    p {
-      font-size: 16px;
-      margin-bottom: 16px;
-    }
-    input[type="text"],
-    input[type="file"],
-    textarea {
-      padding: 12px;
-      margin-top: 10px;
-      font-size: 16px;
-      width: 100%;
-      max-width: 100%;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      box-sizing: border-box;
-      background-color: #222;
-      color: #fff;
-    }
-    input::placeholder {
-      color: #aaa;
-    }
-    button {
-      padding: 12px;
-      margin-top: 12px;
-      font-size: 16px;
-      width: 100%;
-      border-radius: 8px;
-      border: none;
-      background: #1abc9c;
-      color: white;
-      cursor: pointer;
-      transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
-    }
-    button:hover {
-      background: #16a085;
-      transform: scale(1.03);
-      box-shadow: 0 4px 10px rgba(26, 188, 156, 0.4);
-    }
-    .row-inputs {
-      display: flex;
-      gap: 10px;
-      margin-top: 10px;
-    }
-    .row-inputs input[type="text"],
-    .row-inputs input[type="file"] {
-      flex: 1;
-    }
-    .button-row {
-      display: flex;
-      gap: 10px;
-      margin-top: 10px;
-    }
-    .button-row input[type="text"],
-    .button-row input[type="file"] {
-      flex: 1;
-    }
-    hr {
-      margin: 25px 0;
-      border: none;
-      height: 1px;
-      background-color: #444;
-    }
-    #aiQuestion {
-      font-style: italic;
-      color: #ffd;
-      margin-top: 12px;
-      margin-bottom: 8px;
-    }
-    #statusMessage {
-      margin-top: 10px;
-      font-size: 14px;
-    }
-  </style>`;
-
-document.body.innerHTML = `
-  <div class="focus-container">
-    <h1>FocusGuard Active</h1>
-    <p>This site is blocked while you're studying. Ask Gemini to generate a question.</p>
-    <p id="aiQuestion">No question loaded yet.</p>
-
-    <div class="row-inputs">
-      <input id="topicInput" type="text" placeholder="What are you studying?" />
-      <input type="file" id="fileInput" accept=".txt">
-    </div>
-
-    <div class="button-row">
-      <button id="askTopic">Ask Question from Topic</button>
-      <button id="askAI">Ask Question from Notes</button>
-    </div>
-
-    <hr>
-
-    <input id="answerInput" type="text" placeholder="Enter your answer..." />
-    <button id="unlockButton">Unlock</button>
-    <p id="statusMessage"></p>
-  </div>`;
+      <style>
+        body {
+          margin: 0;
+          padding: 0;
+          background: linear-gradient(135deg, #a8e6cf, #000000);
+          color: #fff;
+          font-family: 'Segoe UI', sans-serif;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 100vh;
+        }
+        .focus-container {
+          background: rgba(0, 0, 0, 0.85);
+          padding: 40px 30px;
+          border-radius: 18px;
+          text-align: center;
+          max-width: 500px;
+          width: 90%;
+          box-shadow: 0 0 20px rgba(0,0,0,0.6);
+        }
+        h1 {
+          font-size: 28px;
+          margin-bottom: 18px;
+        }
+        p {
+          font-size: 16px;
+          margin-bottom: 16px;
+        }
+        input[type="text"],
+        input[type="file"],
+        textarea {
+          padding: 12px;
+          margin-top: 10px;
+          font-size: 16px;
+          width: 100%;
+          max-width: 100%;
+          border-radius: 8px;
+          border: 1px solid #ccc;
+          box-sizing: border-box;
+          background-color: #222;
+          color: #fff;
+        }
+        input:placeholder {
+          color: #aaa;
+        }
+        button {
+          padding: 12px;
+          margin-top: 12px;
+          font-size: 16px;
+          width: 100%;
+          border-radius: 8px;
+          border: none;
+          background: #1abc9c;
+          color: white;
+          cursor: pointer;
+          transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
+        }
+        button:hover {
+          background: #16a085;
+          transform: scale(1.03);
+          box-shadow: 0 4px 10px rgba(26, 188, 156, 0.4);
+        }
+        hr {
+          margin: 25px 0;
+          border: none;
+          height: 1px;
+          background-color: #444;
+        }
+        #aiQuestion {
+          font-style: italic;
+          color: #ffd;
+          margin-top: 12px;
+          margin-bottom: 8px;
+        }
+        #statusMessage {
+          margin-top: 10px;
+          font-size: 14px;
+        }
+      </style>`;
 
     document.body.innerHTML = `
       <div class="focus-container">
@@ -233,6 +192,7 @@ document.body.innerHTML = `
         if (result.includes("yes")) {
           chrome.storage.local.set({ unlockGranted: true }, () => {
             chrome.runtime.sendMessage({ type: "unlock", url: window.location.href });
+            status.textContent = "✅ Correct! Unlocking...";
             location.reload();
           });
         } else {
