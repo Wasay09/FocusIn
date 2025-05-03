@@ -100,7 +100,6 @@ document.body.innerHTML =
   <input id="topicInput" type="text" placeholder="What are you studying?" />
   <button id="askTopic">Ask Question from Topic</button>
 
-  <hr>
   <input type="file" id="fileInput" accept=".txt">
   <button id="askAI">Ask Question from Notes</button>
 
