@@ -30,38 +30,50 @@
 
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
   <h2>FocusGuard</h2>
   <p>Stay focused. Block distractions.</p>
-  
+
   <div class="button-container">
     <button id="unlockBtn" class="power-button">⏻</button>
   </div>
 
-  <div id="challengeBox" style="display: none;">
-    <p id="challengeText"></p>
-    <input type="number" id="answerInput" placeholder="Your answer" />
-    <button id="submitAnswer" id="power-button">Submit</button>
-  </div>
-
   <p id="statusMsg"></p>
 
-  <hr>
-  <h4>🚫 Block Custom Sites</h4>
+  <!-- <h4>🚫 Block Custom Sites</h4>
+  <div style="text-align: center;">
+    <input type="text" id="siteInput" placeholder="e.g. facebook.com" />
+    <button id="addSite">Add</button>
+  </div>
+  <ul id="blockedSitesList"></ul> -->
+
+  <!-- <div class="button-container">
+    <button id="addSiteBtn">➕ Add Website to Block</button>
+  </div>
+  <ul id="blockedSitesList"></ul> -->
+  
+  <!-- <div class="button-container">
+    <button id="blockButton">🚫</button>
+  </div> -->
+
+  <h4>➕ Add Website to Block<</h4>
   <input type="text" id="siteInput" placeholder="e.g. facebook.com" />
   <button id="addSite">Add</button>
   <ul id="blockedSitesList"></ul>
 
-  <hr>
+  <!-- <hr>
   <h4>💬 Ask Gemini AI</h4>
   <input type="text" id="geminiInput" placeholder="Ask a study question..." />
   <button id="askGeminiBtn">Ask Gemini</button>
-  <p id="geminiResponse" style="margin-top: 10px; font-style: italic;"></p>
+  <p id="geminiResponse" style="margin-top: 10px; font-style: italic;"></p> -->
 
   <script src="popup.js"></script>
 </body>
+
 </html>

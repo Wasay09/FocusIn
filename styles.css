@@ -38,6 +38,7 @@ p {
   display: flex;
   justify-content: center;  /* horizontal center */
   align-items: center;      /* vertical center */
+  margin-top: 40px;
 }
 
 .power-button {
