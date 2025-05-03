@@ -1,21 +1,10 @@
 {
   "manifest_version": 3,
   "name": "FocusGuard",
-  "version": "3.0",
-  "description": "Stay focused while studying by blocking distracting sites.",
-  "permissions": ["storage", "tabs", "scripting", "activeTab"],
-  "host_permissions": ["<all_urls>"],
-  "background": {
-    "service_worker": "background.js"
-  },
+  "version": "1.0",
   "action": {
-    "default_popup": "popup.html",
-    "default_icon": "icons/icon128.png"
+    "default_popup": "popup.html"
   },
-  "content_scripts": [
-    {
-      "matches": ["<all_urls>"],
-      "js": ["content.js"]
-    }
-  ]
+  "permissions": ["storage", "tabs", "scripting"],
+  "host_permissions": ["<all_urls>"]
 }
