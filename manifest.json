@@ -1,6 +1,6 @@
 {
 "manifest_version": 3,
-   "name": "FocusGuard",
+   "name": "FocusIn",
    "version": "3.0",
    "description": "Stay focused while studying by blocking distracting sites.",
    "permissions": ["storage", "tabs", "scripting", "activeTab"],
