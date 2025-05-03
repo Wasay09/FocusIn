@@ -1,0 +1,24 @@
+body {
+  font-family: Arial, sans-serif;
+  padding: 10px;
+  width: 270px;
+}
+input[type='text'], input[type='number'] {
+  width: 100%;
+  padding: 5px;
+  margin: 5px 0;
+}
+button {
+  margin-top: 5px;
+  padding: 5px 10px;
+  font-size: 14px;
+}
+ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+ul li {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+}
