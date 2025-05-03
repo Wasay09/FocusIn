@@ -136,8 +136,9 @@ addSite.addEventListener("click", () => {
 
 refreshSiteList();
 
+
 // 💬 Gemini AI Integration
-const GEMINI_API_KEY = AIzaSyCVIjBZ9Nyq9WDCqYfy1ZflrsqkXUZhCDc;  // Replace with your actual API key
+const GEMINI_API_KEY = "AIzaSyCVIjBZ9Nyq9WDCqYfy1ZflrsqkXUZhCDc";  // Replace with your actual API key
 
 document.getElementById("askGeminiBtn").addEventListener("click", () => {
   const userInput = document.getElementById("geminiInput").value.trim();
@@ -147,7 +148,7 @@ document.getElementById("askGeminiBtn").addEventListener("click", () => {
 
   responseDisplay.textContent = "⏳ Thinking...";
 
-  fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=AIzaSyCVIjBZ9Nyq9WDCqYfy1ZflrsqkXUZhCDc`, {
+  fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${AIzaSyCVIjBZ9Nyq9WDCqYfy1ZflrsqkXUZhCDc}`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
