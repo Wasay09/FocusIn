@@ -47,31 +47,3 @@ addSite.addEventListener("click", () => {
 });
 
 refreshSiteList();
-
-// // 💬 Gemini AI Integration
-// const GEMINI_API_KEY = "AIzaSyCVIjBZ9Nyq9WDCqYfy1ZflrsqkXUZhCDc";  // Replace with your actual API key
-
-// document.getElementById("askGeminiBtn").addEventListener("click", () => {
-//   const userInput = document.getElementById("geminiInput").value.trim();
-//   const responseDisplay = document.getElementById("geminiResponse");
-
-//   if (!userInput) return;
-
-//   responseDisplay.textContent = "⏳ Thinking...";
-
-//   fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${AIzaSyCVIjBZ9Nyq9WDCqYfy1ZflrsqkXUZhCDc}`, {
-//     method: "POST",
-//     headers: { "Content-Type": "application/json" },
-//     body: JSON.stringify({
-//       contents: [{ parts: [{ text: userInput }] }]
-//     })
-//   })
-//   .then(res => res.json())
-//   .then(data => {
-//     const reply = data.candidates?.[0]?.content?.parts?.[0]?.text;
-//     responseDisplay.textContent = reply || "⚠️ No response from Gemini.";
-//   })
-//   .catch(() => {
-//     responseDisplay.textContent = "❌ Error reaching Gemini API.";
-//   });
-// });

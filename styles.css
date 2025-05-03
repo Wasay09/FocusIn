@@ -97,7 +97,7 @@ ul li button:hover {
 button:hover {
   transform: scale(1.1);
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-} */
+}
 
 .site-input-container {
   text-align: center;
