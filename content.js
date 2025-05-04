@@ -280,7 +280,7 @@ document.body.innerHTML =
               chrome.runtime.sendMessage({ type: "unlock", url: window.location.href });
               location.reload();
             });
-          }, 3000); // Wait 3 seconds so they see the popup
+          }, 2000); // Wait 3 seconds so they see the popup
         }
                 
         else {
