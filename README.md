@@ -8,16 +8,9 @@ FocusGuard is a lightweight and intuitive Google Chrome extension designed to he
 
 - ✅ Toggle website blocking with a single button
 - 🧱 Customizable list of blocked websites
-- 🕒 Tracks how much time you spend trying to access blocked sites
 - 🔒 Persistent settings using Chrome local storage
 - 🧘‍♂️ Clean, minimalist design to keep you focused
 - 🌙 Dark theme for low-distraction interface
-
-## 📸 Demo
-
-![FocusGuard Screenshot](./images/demo.png)
-
-> *Insert screenshot or screen recording of the extension in action*
 
 ## 🛠️ How It Works
 
@@ -35,16 +28,16 @@ FocusGuard is a lightweight and intuitive Google Chrome extension designed to he
 3. Enable Developer mode
 4. Click "Load unpacked" and select the FocusGuard/ directory
 
-🧪 Tech Stack
+## 🧪 Tech Stack
 - HTML, CSS, JavaScript
 - Chrome Extensions API
 - Chrome Storage API
 - Gemini API
 
-💡 Inspiration
+## 💡 Inspiration
 We wanted to build a simple, no-nonsense productivity tool for students and professionals constantly battling online distractions. FocusGuard is our hackathon solution to this modern problem.
 
-👥 Contributors
+## 👥 Contributors
 - Wasayuddin Syed
 - Louis Nguyen
 - Aryan Shah
