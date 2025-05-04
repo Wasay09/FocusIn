@@ -182,7 +182,6 @@ chrome.storage.local.get(["unlockGranted", "blockedSites", "blockingEnabled"], (
         transform: scale(1);
       }
     }
-
   </style>`;
 
 document.body.innerHTML = 
