@@ -259,6 +259,15 @@ document.body.innerHTML =
 
         if (result.includes("yes")) {
           status.textContent = "✅ Correct! Generating a motivational message...";
+          // ✅ Log today's focus success
+          const today = new Date().toISOString().split("T")[0];
+          chrome.storage.local.get("focusDays", (data) => {
+            const days = new Set(data.focusDays || []);
+            if (!days.has(today)) {
+              days.add(today);
+              chrome.storage.local.set({ focusDays: Array.from(days) });
+            }
+          });
         
           const motivationPrompt = "Create a motivational sentence about succuess and dedication for a user who got the correct answer for a quiz.";
           const motivationRes = await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" + apiKey, {

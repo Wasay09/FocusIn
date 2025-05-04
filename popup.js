@@ -1,86 +1,167 @@
-// button switch (on or off)
-const buttonInput = document.getElementById("unlockBtn");
 
-// Initialize button state from storage
-chrome.storage.local.get("blockingEnabled", (data) => {
-  const enabled = data.blockingEnabled ?? true; // default to true
-  updateButtonState(enabled); // change the color based on the button being on or off
-});
-
-// if the color is green, the button is enabled else the button is not enabled
-function updateButtonState(isEnabled) {
-  buttonInput.style.backgroundColor = isEnabled ? "rgb(76, 175, 80)" : "rgb(211, 47, 47)";
-}
-
-// enabling the button when it is clicked
-buttonInput.addEventListener("click", () => {
+document.addEventListener("DOMContentLoaded", () => {
+  // Button toggle logic
+  const buttonInput = document.getElementById("unlockBtn");
   chrome.storage.local.get("blockingEnabled", (data) => {
-    const currentlyEnabled = data.blockingEnabled ?? true;
+    const enabled = data.blockingEnabled ?? true;
+    updateButtonState(enabled);
+  });
 
-    // if it was true, make it false. If it was false, make it true
-    const newValue = !currentlyEnabled;
+  function updateButtonState(isEnabled) {
+    buttonInput.style.backgroundColor = isEnabled ? "rgb(76, 175, 80)" : "rgb(211, 47, 47)";
+  }
 
-    chrome.storage.local.set({ blockingEnabled: newValue }, () => {
-      updateButtonState(newValue);
+  buttonInput.addEventListener("click", () => {
+    chrome.storage.local.get("blockingEnabled", (data) => {
+      const currentlyEnabled = data.blockingEnabled ?? true;
+      const newValue = !currentlyEnabled;
+      chrome.storage.local.set({ blockingEnabled: newValue }, () => {
+        updateButtonState(newValue);
+      });
     });
   });
-});
 
-// site Block List
-const siteInput = document.getElementById("siteInput");
-const addSite = document.getElementById("addSite");
-const list = document.getElementById("blockedSitesList");
+  // Site block list logic
+  const siteInput = document.getElementById("siteInput");
+  const addSite = document.getElementById("addSite");
+  const list = document.getElementById("blockedSitesList");
 
-// shows all the websites saved for blocking
-function refreshSiteList() {
-  chrome.storage.local.get("blockedSites", (data) => {
-    const sites = data.blockedSites || [];
-    list.innerHTML = "";
+  function refreshSiteList() {
+    chrome.storage.local.get("blockedSites", (data) => {
+      const sites = data.blockedSites || [];
+      list.innerHTML = "";
 
-    // make a new list for each website added
-    sites.forEach((site, i) => {
-      const li = document.createElement("li");
-      li.textContent = site;
+      sites.forEach((site, i) => {
+        const li = document.createElement("li");
+        li.textContent = site;
 
-      // creating a remove button for each website in the list
-      const btn = document.createElement("button");
-      btn.textContent = "Remove";
+        const btn = document.createElement("button");
+        btn.textContent = "Remove";
+        btn.onclick = () => {
+          sites.splice(i, 1);
+          chrome.storage.local.set({ blockedSites: sites }, refreshSiteList);
+        };
 
-      // when the button is clicked we remove the website from the list 
-      btn.onclick = () => {
-        sites.splice(i, 1);
+        li.appendChild(btn);
+        list.appendChild(li);
+      });
+    });
+  }
+
+  addSite.addEventListener("click", () => {
+    let site = siteInput.value.trim().toLowerCase();
+
+    if (!site) return;
+
+    site = site
+      .replace(/^https?:\/\//, "")
+      .replace(/^.*?(?=www\.)/, "")
+      .replace(/^www\./, "")
+      .replace(/[^a-z0-9.-/]/g, "")
+      .split("/")[0];
+
+    chrome.storage.local.get("blockedSites", (data) => {
+      const sites = data.blockedSites || [];
+      if (!sites.includes(site)) {
+        sites.push(site);
         chrome.storage.local.set({ blockedSites: sites }, refreshSiteList);
-      };
-      li.appendChild(btn);
-      list.appendChild(li);
+      }
+      siteInput.value = "";
     });
   });
-}
 
-addSite.addEventListener("click", () => {
-  let site = siteInput.value.trim();
+  refreshSiteList();
 
-  if (!site) return;
+  // Calendar Logic
+  let currentMonth = new Date();
+  const monthGrid = document.getElementById("monthGrid");
+  const monthYearText = document.getElementById("monthYear");
+  const prevMonthBtn = document.getElementById("prevMonth");
+  const nextMonthBtn = document.getElementById("nextMonth");
+  const statsDisplay = document.getElementById("monthStats");
 
-  // Normalize the site input
-  site = site
-    .replace(/^[a-z]+:\/\//, "")     // remove http:// or https://
-    .replace(/^ww[w\d]*\./, "")      // remove www., www2., ww. etc.
-    .replace(/[^a-z0-9.-/]/g, "")    // remove bad characters (like ] or #)
-    .split("/")[0];                          // remove any path after the domain
+  const dayNames = ["S", "M", "T", "W", "T", "F", "S"];
 
-  chrome.storage.local.get("blockedSites", (data) => {
-    const sites = data.blockedSites || [];
+  function formatDate(date) {
+    return date.toISOString().split("T")[0];
+  }
 
-    // Only add if not already in the list
-    if (!sites.includes(site)) {
-      sites.push(site);
-      chrome.storage.local.set({ blockedSites: sites }, refreshSiteList);
+  function renderMonth(focusDays) {
+    const year = currentMonth.getFullYear();
+    const month = currentMonth.getMonth();
+    const focusSet = new Set(focusDays);
+
+    const firstDay = new Date(year, month, 1);
+    const startDay = firstDay.getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const daysInPrevMonth = new Date(year, month, 0).getDate();
+
+    monthYearText.textContent = currentMonth.toLocaleString("default", {
+      month: "long",
+      year: "numeric",
+    });
+
+    monthGrid.innerHTML = "";
+
+    dayNames.forEach(day => {
+      const cell = document.createElement("div");
+      cell.className = "day-name";
+      cell.textContent = day;
+      monthGrid.appendChild(cell);
+    });
+
+    let focusCount = 0;
+    const totalGridDays = 42;
+
+    for (let i = 0; i < startDay; i++) {
+      const day = daysInPrevMonth - startDay + i + 1;
+      const cell = document.createElement("div");
+      cell.textContent = day;
+      cell.className = "other-month";
+      monthGrid.appendChild(cell);
     }
 
-    siteInput.value = ""; // Clear the input box
-  });
-});
+    for (let i = 1; i <= daysInMonth; i++) {
+      const date = new Date(year, month, i);
+      const dateStr = formatDate(date);
+      const cell = document.createElement("div");
+      cell.textContent = i;
 
-// showing the blocked site list
-refreshSiteList();
+      if (focusSet.has(dateStr)) {
+        cell.classList.add("focus-day");
+        focusCount++;
+      }
+
+      monthGrid.appendChild(cell);
+    }
+
+    const daysRendered = startDay + daysInMonth;
+    const remainingCells = totalGridDays - daysRendered;
+    for (let i = 1; i <= remainingCells; i++) {
+      const cell = document.createElement("div");
+      cell.textContent = i;
+      cell.className = "other-month";
+      monthGrid.appendChild(cell);
+    }
+
+    statsDisplay.textContent = `${focusCount} focus day${focusCount !== 1 ? "s" : ""} this month`;
+  }
+
+  prevMonthBtn.addEventListener("click", () => {
+    currentMonth.setMonth(currentMonth.getMonth() - 1);
+    loadCalendar();
+  });
+
+  nextMonthBtn.addEventListener("click", () => {
+    currentMonth.setMonth(currentMonth.getMonth() + 1);
+    loadCalendar();
+  });
+
+  function loadCalendar() {
+    chrome.storage.local.get("focusDays", (data) => {
+      renderMonth(data.focusDays || []);
+    });
+  }
+
+  loadCalendar();
+});
