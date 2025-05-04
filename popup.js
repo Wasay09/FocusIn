@@ -57,25 +57,28 @@ function refreshSiteList() {
   });
 }
 
-// function to click the add button
 addSite.addEventListener("click", () => {
-  // getting the inputted site the user wants to block
-  const site = siteInput.value.trim();
+  let site = siteInput.value.trim();
 
-  // if the input is empty, return nothing
   if (!site) return;
+
+  // Normalize the site input
+  site = site
+    .replace(/^[a-z]+:\/\//, "")     // remove http:// or https://
+    .replace(/^ww[w\d]*\./, "")      // remove www., www2., ww. etc.
+    .replace(/[^a-z0-9.-/]/g, "")    // remove bad characters (like ] or #)
+    .split("/")[0];                          // remove any path after the domain
 
   chrome.storage.local.get("blockedSites", (data) => {
     const sites = data.blockedSites || [];
 
-    // if the site isn't already in the list then add it
+    // Only add if not already in the list
     if (!sites.includes(site)) {
       sites.push(site);
       chrome.storage.local.set({ blockedSites: sites }, refreshSiteList);
     }
 
-    // clearing input box
-    siteInput.value = "";
+    siteInput.value = ""; // Clear the input box
   });
 });
 
