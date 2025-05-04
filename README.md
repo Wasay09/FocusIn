@@ -23,10 +23,10 @@ FocusGuard is a lightweight and intuitive Google Chrome extension designed to he
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/your-username/focusguard.git
+   git clone https://github.com/your-username/focusin.git
 2. Open Google Chrome and go to chrome://extensions/
 3. Enable Developer mode
-4. Click "Load unpacked" and select the FocusGuard/ directory
+4. Click "Load unpacked" and select the FocusIn/ directory
 
 ## 🧪 Tech Stack
 - HTML, CSS, JavaScript
