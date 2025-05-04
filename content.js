@@ -186,7 +186,7 @@ chrome.storage.local.get(["unlockGranted", "blockedSites", "blockingEnabled"], (
 
 document.body.innerHTML = 
 `<div class="focus-container">
-    <h1>FocusGuard Active</h1>
+    <h1>FocusIn</h1>
     <p>This site is blocked while you're studying. Ask Gemini to generate a question.</p>
     <p id="aiQuestion">No question loaded yet.</p>
 
