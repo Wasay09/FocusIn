@@ -111,10 +111,47 @@ chrome.storage.local.get(["unlockGranted", "blockedSites", "blockingEnabled"], (
       margin-top: 10px;
       font-size: 14px;
     }
+    #motivationModal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.85);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    .modal-content {
+      background-color: #1abc9c;
+      padding: 30px 40px;
+      border-radius: 16px;
+      font-size: 24px;
+      font-weight: bold;
+      color: white;
+      text-align: center;
+      box-shadow: 0 0 25px rgba(0,0,0,0.7);
+      animation: fadeInZoom 0.5s ease-in-out;
+      max-width: 600px;
+    }
+
+    @keyframes fadeInZoom {
+      0% {
+        opacity: 0;
+        transform: scale(0.7);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
   </style>`;
 
-document.body.innerHTML = `
-  <div class="focus-container">
+document.body.innerHTML = 
+`<div class="focus-container">
     <h1>FocusGuard Active</h1>
     <p>This site is blocked while you're studying. Ask Gemini to generate a question.</p>
     <p id="aiQuestion">No question loaded yet.</p>
@@ -134,7 +171,12 @@ document.body.innerHTML = `
     <input id="answerInput" type="text" placeholder="Enter your answer..." />
     <button id="unlockButton">Unlock</button>
     <p id="statusMessage"></p>
-  </div>`;
+    
+
+  </div>
+  <div id="motivationModal" style="display:none;">
+  <div class="modal-content" id="motivationText"></div>
+</div>`;
 
     let questionLoaded = false;
     let storedQuestion = "";
@@ -216,12 +258,32 @@ document.body.innerHTML = `
         const result = data?.candidates?.[0]?.content?.parts?.[0]?.text.toLowerCase();
 
         if (result.includes("yes")) {
-          chrome.storage.local.set({ unlockGranted: true }, () => {
-            chrome.runtime.sendMessage({ type: "unlock", url: window.location.href });
-            status.textContent = "✅ Correct! Unlocking...";
-            location.reload();
+          status.textContent = "✅ Correct! Generating a motivational message...";
+        
+          const motivationPrompt = "Create a motivational sentence about succuess and dedication for a user who got the correct answer for a quiz.";
+          const motivationRes = await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" + apiKey, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ contents: [{ parts: [{ text: motivationPrompt }] }] })
           });
-        } else {
+        
+          const motivationData = await motivationRes.json();
+          const motivation = motivationData?.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || "Great job! Keep it up!";
+        
+          // Show popup
+          document.getElementById("motivationText").textContent = motivation;
+          document.getElementById("motivationModal").style.display = "flex";
+        
+          // Wait a bit before unlocking
+          setTimeout(() => {
+            chrome.storage.local.set({ unlockGranted: true }, () => {
+              chrome.runtime.sendMessage({ type: "unlock", url: window.location.href });
+              location.reload();
+            });
+          }, 3000); // Wait 3 seconds so they see the popup
+        }
+                
+        else {
           status.textContent = "❌ Incorrect. Try again.";
         }
       } catch (err) {
