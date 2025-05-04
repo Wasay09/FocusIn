@@ -2,7 +2,7 @@
 
 **GDSC Hackathon Project**
 
-FocusGuard is a lightweight and intuitive Google Chrome extension designed to help users stay focused and reduce distractions by blocking time-wasting websites. Whether you're studying, working, or just trying to build better habits, FocusGuard empowers you to take control of your browsing time.
+FocusIn is a lightweight and intuitive Google Chrome extension designed to help users stay focused and reduce distractions by blocking time-wasting websites. Whether you're studying, working, or just trying to build better habits, FocusIn empowers you to take control of your browsing time.
 
 ## 🚀 Features
 
@@ -35,7 +35,7 @@ FocusGuard is a lightweight and intuitive Google Chrome extension designed to he
 - Gemini API
 
 ## 💡 Inspiration
-We wanted to build a simple, no-nonsense productivity tool for students and professionals constantly battling online distractions. FocusGuard is our hackathon solution to this modern problem.
+We wanted to build a simple, no-nonsense productivity tool for students and professionals constantly battling online distractions. FocusIn is our hackathon solution to this modern problem.
 
 ## 👥 Contributors
 - Wasayuddin Syed
