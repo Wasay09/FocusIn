@@ -7,30 +7,32 @@
 </head>
 
 <body>
-  <h2 style="font-size: 30px;">FocusIn</h2>
-  <p>Stay focused. Block distractions.</p>
+  <div class="glow-border">
+    <h2 style="font-size: 30px;">FocusIn</h2>
+    <p>Stay focused. Block distractions.</p>
 
-  <div class="button-container">
-    <button id="unlockBtn" class="power-button" title="Toggle Focus Mode">⏻</button>
-  </div>
-
-  <h4>➕ Add a Website to Block</h4>
-  <div class="site-input-container">
-    <input type="text" id="siteInput" placeholder="e.g. facebook.com" />
-    <button id="addSite">Add</button>
-  </div>
-
-  <ul id="blockedSitesList"></ul>
-
-  <h4>📅 Focus Calendar</h4>
-  <div class="calendar-container">
-    <div class="calendar-header">
-      <button id="prevMonth">‹</button>
-      <span id="monthYear">Loading...</span>
-      <button id="nextMonth">›</button>
+    <div class="button-container">
+      <button id="unlockBtn" class="power-button" title="Toggle Focus Mode">⏻</button>
     </div>
-    <div class="calendar-grid" id="monthGrid"></div>
-    <p id="monthStats" style="margin-top: 8px; font-size: 14px; color: #aaaaaa;"></p>
+
+    <h4>➕ Add a Website to Block</h4>
+    <div class="site-input-container">
+      <input type="text" id="siteInput" placeholder="e.g. facebook.com" />
+      <button id="addSite">Add</button>
+    </div>
+
+    <ul id="blockedSitesList"></ul>
+
+    <h4>📅 Focus Calendar</h4>
+    <div class="calendar-container">
+      <div class="calendar-header">
+        <button id="prevMonth">‹</button>
+        <span id="monthYear">Loading...</span>
+        <button id="nextMonth">›</button>
+      </div>
+      <div class="calendar-grid" id="monthGrid"></div>
+      <p id="monthStats" style="margin-top: 8px; font-size: 14px; color: #aaaaaa;"></p>
+    </div>
   </div>
 
   <script src="popup.js"></script>

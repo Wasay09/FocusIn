@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", () => {
   // Button toggle logic
   const buttonInput = document.getElementById("unlockBtn");
